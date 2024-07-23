@@ -14,7 +14,7 @@ const NavBar: React.FC = () => {
                 <Button
                     className="Button"
                 >
-                    {category}
+                    <b>{category}</b>
                     <div className="arrow-div">
                         <ArrowBackIosNew/>
                     </div>
