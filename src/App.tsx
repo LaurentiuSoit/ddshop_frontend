@@ -10,6 +10,7 @@ function App() {
         <div className="app">
             <header className="header">
                 <div className="color-bar">
+                    <b>The largest collection of swords, weapons and more from the Bronze Age to World War II</b>
                 </div>
                 <div className="header-wrapper">
                     <div className="top-elements">
