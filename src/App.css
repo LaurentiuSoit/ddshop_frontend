@@ -22,7 +22,7 @@
 
 .color-bar {
     display: flex;
-    height: 25px;
+    min-height: 25px;
     background-color: #be9359;
     max-width: 100vw;
     color: white;
