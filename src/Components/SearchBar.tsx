@@ -1,9 +1,25 @@
 import React from 'react'
-import {Search} from "@mui/icons-material";
+import {TextField, IconButton, InputAdornment} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import './SearchBar.css'
 
 const SearchBar: React.FC = () => {
     return (
-        <Search/>
+        <TextField
+            className="search-bar"
+            variant="outlined"
+            placeholder="Search for products..."
+            fullWidth
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <IconButton className="icon-button" disabled>
+                            <SearchIcon className="search-icon"/>
+                        </IconButton>
+                    </InputAdornment>
+                )
+            }}
+        />
     );
 };
 

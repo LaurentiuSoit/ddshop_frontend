@@ -1,25 +1,30 @@
-.Box {
+.box {
     display: flex;
-    flex:1;
     width: 65vw;
     align-self: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.Button.Button{
+.category-button.category-button {
     color: white;
-    font-size: 12px;
+    font-size: 15px;
+    font-family: 'Lato';
+    text-transform: none;
+    margin-bottom: 5px;
+}
+
+.category-button.category-button:hover {
+    background-color: transparent;
 }
 
 .arrow-div {
-    margin-left: 2px;
-    margin-right: 2px;
     transition: all ease 100ms;
     transform: matrix(0, 1, -1, 0, 0, -2.5) scale(0.5);
 
 }
 
-.Button.Button:hover > .arrow-div {
+.category-button.category-button:hover > .arrow-div {
     transform: matrix(0, -1, -1, 0, 0, -2.5) scale(0.5);
     transition: all ease 100ms;
 }

@@ -3,18 +3,15 @@ import {Box, Button} from '@mui/material';
 import './NavBar.css'
 import {ArrowBackIosNew} from "@mui/icons-material";
 
+const categories: string[] = ['Swords', 'Weapons', 'Armor', 'Shields', 'Clothing', 'Accessories',
+    ' LARP Weapons & Gear', 'Sport Combat', 'Cultures', 'Brand', 'Sale'];
+
 const NavBar: React.FC = () => {
-
-    const categories: string[] = ['Swords', 'Weapons', 'Armor', 'Shields', 'Clothing', 'Accessories',
-                                    ' LARP Weapons & Gear', 'Sport Combat'];
-
     return (
-        <Box className="Box">
+        <Box className="box">
             {categories.map((category, index) => (
-                <Button
-                    className="Button"
-                >
-                    <b>{category}</b>
+                <Button className="category-button">
+                    {category}
                     <div className="arrow-div">
                         <ArrowBackIosNew/>
                     </div>
