@@ -4,6 +4,7 @@ import NavBar from "./Components/NavBar";
 import Logo from "./Components/Logo";
 import SearchBar from "./Components/SearchBar";
 import AccountCart from "./Components/AccountCart";
+import {Routes, Route, Link} from "react-router-dom";
 
 function App() {
     return (
@@ -22,8 +23,10 @@ function App() {
                     </div>
                     <NavBar/>
                 </div>
-
             </header>
+            <Routes>
+                <Route path="/"/>
+            </Routes>
         </div>
     );
 }

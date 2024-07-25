@@ -9,6 +9,7 @@
     font-size: 17px;
     font-family: 'Lato';
     text-transform: none;
+    margin-right: 10px;
 }
 
 .account-button.account-button:hover {
@@ -27,8 +28,7 @@
     font-size: 17px;
     font-family: 'Lato';
     text-transform: none;
-    padding: 0;
-    margin: 0;
+    margin-left: 10px;
 }
 
 .cart-button.cart-button:hover {
