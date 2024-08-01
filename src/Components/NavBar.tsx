@@ -2,12 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button} from '@mui/material';
 import './NavBar.css'
 import {ArrowBackIosNew} from "@mui/icons-material";
-
-interface CategoryDTO {
-    id: number;
-    name: string;
-    description: string;
-}
+import {Link} from "react-router-dom";
+import {CategoryDTO} from "./Types/CategoryDTO";
 
 const NavBar: React.FC = () => {
 
@@ -33,12 +29,14 @@ const NavBar: React.FC = () => {
     return (
         <Box className="box">
             {categoryList.map(category => (
-                <Button className="category-button" key={category.id}>
-                    {category.name}
-                    <div className="arrow-div">
-                        <ArrowBackIosNew/>
-                    </div>
-                </Button>
+                <Link key={category.id} to={`/category/${category.id}`}>
+                    <Button className="category-button" key={category.id}>
+                        {category.name}
+                        <div className="arrow-div">
+                            <ArrowBackIosNew/>
+                        </div>
+                    </Button>
+                </Link>
             ))}
         </Box>
     );

@@ -5,7 +5,7 @@
 }
 
 .header {
-    background-color: #1a1a1a;
+    background-color: #000000;
     min-height: 10vh; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
@@ -44,3 +44,32 @@
     max-width: 500px;
     width: 80vw;
 }
+
+.floating-cart.MuiButtonBase-root {
+    background-color: #a30015;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1301; /* Ensure it is on top of other elements */
+    transition: right 225ms ease;
+}
+
+.floating-cart-open.MuiButtonBase-root {
+    right: 330px
+}
+
+.floating-cart.MuiButtonBase-root:hover {
+    background-color: #a30015;
+}
+
+.cart-icon {
+    scale: 1.3;
+    color: white;
+}
+
+.drawer-box {
+    background-color: #070707;
+    height: 100vh;
+    width: 300px;
+}
+

@@ -13,7 +13,7 @@ const SearchBar: React.FC = () => {
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">
-                        <IconButton className="icon-button" disabled>
+                        <IconButton className="icon-button">
                             <SearchIcon className="search-icon"/>
                         </IconButton>
                     </InputAdornment>

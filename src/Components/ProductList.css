@@ -1,0 +1,45 @@
+.product-container.MuiContainer-root {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    justify-content: space-evenly;
+}
+
+.card.MuiPaper-root {
+    border: 1px solid dimgrey;
+    max-width: 250px;
+    margin: 25px;
+    background-color: #1a1a1a;
+    height: auto;
+}
+
+.card-content {
+    color: #be9359;
+    background-color: #1a1a1a;
+    height: 350px;
+}
+
+.product-link {
+    color: #e1b65b;
+    text-decoration: none;
+}
+
+.select-options-button.MuiButtonBase-root {
+    text-align: center;
+    margin-bottom: 10px;
+    background-color: #be9359;
+}
+
+.select-options-button.MuiButtonBase-root:hover {
+    background-color: #e1b65b;
+}
+
+.add-circle-icon {
+    scale: 0.8;
+}
+
+.product-image {
+    height: 200px;
+    width: auto;
+}
