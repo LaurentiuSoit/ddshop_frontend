@@ -21,7 +21,7 @@ const MainPage: React.FC = () => {
             }
         };
         fetchProducts();
-    }, []);
+    }, [sortBy]);
 
     return (
         <ProductList products={productList}/>

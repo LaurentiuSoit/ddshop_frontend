@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ProductListProps} from "./Props/ProductListProps";
 import {Link} from "react-router-dom";
 import {Button, Card, CardContent, Container} from "@mui/material";
@@ -9,10 +9,9 @@ const ProductList: React.FC<ProductListProps> = ({products}) => {
 
     function productImage(name: string): string {
         try {
-            const newPath: string = require(`/public/Images/${name.toLowerCase()
+            return require(`/public/Images/${name.toLowerCase()
                 .replaceAll(' ', '_')
                 .replaceAll('-', '_')}.png`);
-            return newPath;
         } catch (error: any) {
             console.log(error);
         }
