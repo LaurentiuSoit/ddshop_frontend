@@ -70,11 +70,11 @@
 }
 
 .signup-textfield .MuiInputLabel-root {
-    color: #e1b65b; /* Label color */
+    color: white; /* Label color */
 }
 
 .signup-textfield .MuiInputLabel-root.Mui-focused {
-    color: #e1b65b; /* Label color when focused */
+    color: white; /* Label color when focused */
 }
 
 .signup-textfield .MuiInputBase-input {

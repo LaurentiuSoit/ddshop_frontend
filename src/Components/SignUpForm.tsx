@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import {AccountCircle, Lock, Visibility, VisibilityOff} from "@mui/icons-material";
 import "./SignUpForm.css"
+import {useNavigate} from "react-router-dom";
 
-const AccountForm: React.FC = () => {
+const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({setIsLoggedIn}) => {
 
     const [shopUserCreationDTO, setShopUserCreationDTO] = useState<ShopUserCreationDTO>({
         firstName: '',
@@ -32,6 +33,7 @@ const AccountForm: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [showPassword, setShowPassword] = React.useState(false);
+    const navigate = useNavigate();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,7 +56,7 @@ const AccountForm: React.FC = () => {
         }));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmitSignup = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
@@ -65,10 +67,6 @@ const AccountForm: React.FC = () => {
                 },
                 body: JSON.stringify(shopUserCreationDTO)
             });
-
-            if (!response.ok) {
-                throw new Error('Signup failed.');
-            }
 
             const result = await response.text();
             console.log('Response text: ', result);
@@ -81,6 +79,33 @@ const AccountForm: React.FC = () => {
         } catch (err: unknown) {
             setError((err as Error).message);
             setSuccess(null);
+        }
+    };
+
+    const handleSubmitLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:8080/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginDTO)
+            });
+
+            const result = await response.text();
+            console.log('Response text: ', result);
+            if (response.ok) {
+                setError(null);
+                localStorage.setItem("logged-in", "true");
+                setIsLoggedIn(true);
+                navigate("/");
+            } else {
+                throw new Error('Login failed.');
+            }
+        } catch (err: unknown) {
+            setError((err as Error).message);
         }
     };
 
@@ -101,7 +126,7 @@ const AccountForm: React.FC = () => {
                 <Typography className="signup-typography">
                     Log In
                 </Typography>
-                <form className="signup-form">
+                <form className="signup-form" onSubmit={handleSubmitLogin}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -165,7 +190,7 @@ const AccountForm: React.FC = () => {
                 <Typography className="signup-typography">
                     Sign Up
                 </Typography>
-                <form className="signup-form" onSubmit={handleSubmit}>
+                <form className="signup-form" onSubmit={handleSubmitSignup}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -261,4 +286,4 @@ const AccountForm: React.FC = () => {
     )
 }
 
-export default AccountForm;
+export default SignUpForm;

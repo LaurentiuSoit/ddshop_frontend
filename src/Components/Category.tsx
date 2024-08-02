@@ -3,6 +3,7 @@ import {ProductDTO} from "./Types/ProductDTO";
 import ProductList from "./ProductList";
 import {useParams} from "react-router-dom";
 import {CategoryDTO} from "./Types/CategoryDTO";
+import {FormControl, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 const Category: React.FC = () => {
 
@@ -12,6 +13,12 @@ const Category: React.FC = () => {
         name: '',
         description: ''
     })
+    const [sortBy, setSortBy] = useState<string>('newest');
+    const handleSortSelection = (event: SelectChangeEvent<string>) => {
+        setSortBy(event.target.value as string);
+    }
+
+
     const [error, setError] = useState<string | null>(null);
 
     const {categoryId} = useParams();
@@ -22,7 +29,7 @@ const Category: React.FC = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/product/getByCategory?categoryId=${categoryId}`);
+                const response = await fetch(`http://localhost:8080/product/getByCategory?categoryId=${categoryId}&sortBy=${sortBy}`);
                 if (!response.ok) {
                     throw new Error('Could not get products.');
                 }
@@ -49,7 +56,7 @@ const Category: React.FC = () => {
         }
         fetchProducts();
         fetchCategory();
-    }, [categoryId]);
+    }, [categoryId, sortBy]);
 
     return (
         <div>
@@ -61,6 +68,17 @@ const Category: React.FC = () => {
                     {category.name}
                 </h1>
             </header>
+            <FormControl className="form-control">
+                <Select
+                    className="select"
+                    value={sortBy}
+                    onChange={handleSortSelection}
+                >
+                    <MenuItem className="menu-item" value={"newest"}>Sort By Newest</MenuItem>
+                    <MenuItem className="menu-item" value={"priceasc"}>Sort By Price Ascending</MenuItem>
+                    <MenuItem className="menu-item" value={"pricedesc"}>Sort By Price Descending</MenuItem>
+                </Select>
+            </FormControl>
             <ProductList products={productList}/>
         </div>
     );

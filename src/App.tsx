@@ -1,24 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import NavBar from "./Components/NavBar";
 import Logo from "./Components/Logo";
 import SearchBar from "./Components/SearchBar";
 import AccountCart from "./Components/AccountCart";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useLocation} from "react-router-dom";
 import MainPage from "./Components/MainPage";
 import Category from "./Components/Category";
 import SignUpForm from "./Components/SignUpForm";
 import Cart from "./Components/Cart";
-import {Box, Button, Drawer, Fab, Typography} from "@mui/material";
+import {Box, Divider, Drawer, Fab} from "@mui/material";
 import {ShoppingCart} from "@mui/icons-material";
+import Account from "./Components/Account";
 
 function App() {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(localStorage.getItem("logged-in") === "true");
+    const location = useLocation();
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
+
+    useEffect(() => {
+        setIsLoggedIn(localStorage.getItem("logged-in") === "true");
+    }, [location]);
 
     return (
         <div className="app">
@@ -32,7 +38,7 @@ function App() {
                         <div className="search-bar-wrapper">
                             <SearchBar/>
                         </div>
-                        <AccountCart/>
+                        <AccountCart setIsLoggedIn={setIsLoggedIn}/>
                     </div>
                     <NavBar/>
                 </div>
@@ -49,9 +55,12 @@ function App() {
                 <Box
                     className="drawer-box"
                     role="presentation"
-                    onClick={toggleDrawer}
-                    onKeyDown={toggleDrawer}
                 >
+                    <div className="drawer-box-header">
+                        <ShoppingCart className="drawer-box-cart"/>
+                        <b>Your Cart</b>
+                    </div>
+                    <Divider className="divider"/>
                 </Box>
             </Drawer>
             <Routes>
@@ -60,7 +69,7 @@ function App() {
                 <Route path="/category/:categoryId"
                        element={<Category/>}/>
                 <Route path="/my-account"
-                       element={<SignUpForm/>}/>
+                       element={isLoggedIn ? <Account/> : <SignUpForm setIsLoggedIn={setIsLoggedIn}/>}/>
                 <Route path="/cart"
                        element={<Cart/>}/>
             </Routes>

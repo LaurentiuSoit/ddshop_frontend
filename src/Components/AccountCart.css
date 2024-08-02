@@ -4,6 +4,40 @@
     flex-wrap: wrap;
 }
 
+.account-div:hover > .account-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-menu {
+    position: absolute;
+    display: none;
+    background-color: #1a1a1a;
+    width: 200px;
+    border: 1px solid #be9359;
+    z-index: 1300;
+}
+
+.account-menu div {
+    padding: 4px;
+}
+
+.account-menu div a:link {
+    color: white;
+}
+
+.account-menu div a:visited {
+    color: white;
+}
+
+.account-menu div a:hover {
+    color: white;
+}
+
+.account-menu div a:active {
+    color: white;
+}
+
 .account-button.account-button {
     color: #be9359;
     font-size: 17px;

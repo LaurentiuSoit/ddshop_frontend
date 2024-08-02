@@ -73,3 +73,21 @@
     width: 300px;
 }
 
+.drawer-box-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 70px;
+    color: #be9359;
+    font-size: 1.5em;
+}
+
+.drawer-box-cart {
+    scale: 1.2;
+    padding-right: 5px;
+}
+
+.divider {
+    background: white;
+}
