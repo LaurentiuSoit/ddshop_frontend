@@ -1,35 +1,29 @@
 import React, {useEffect, useState} from 'react'
+import {useSearchParams} from "react-router-dom";
 import ProductList from "./ProductList";
-import {useParams} from "react-router-dom";
-import {CategoryDTO} from "./Types/CategoryDTO";
-import {Checkbox, FormControl, FormControlLabel, MenuItem, Select, SelectChangeEvent, Slider} from "@mui/material";
 import {ProductFilterCriteria} from "./Types/ProductFilterCriteria";
+import {Checkbox, FormControl, FormControlLabel, MenuItem, Select, SelectChangeEvent, Slider} from "@mui/material";
 import {fetchAttributeValueById, useFetchProductAttributes, useFetchProducts} from "../Utils/Utilities";
 
-const Category: React.FC = () => {
+const SearchPage: React.FC = () => {
+    const [searchParams] = useSearchParams();
+    const searchString = searchParams.get('searchString');
     const MINPRICE = 0;
     const MAXPRICE = 500;
     const [price, setPrice] = useState<number[]>([MINPRICE, MAXPRICE]);
     const [inStock, setInStock] = useState<boolean>(false);
-    const [category, setCategory] = useState<CategoryDTO>({
-        id: 0,
-        name: '',
-        description: ''
-    })
     const [sortBy, setSortBy] = useState<string>('newest');
+    const [attributeValues, setAttributeValues] = useState<Record<number, string>>({});
+
     const handleSortSelection = (event: SelectChangeEvent<string>) => {
         setSortBy(event.target.value as string);
     }
-
-    const [attributeValues, setAttributeValues] = useState<Record<number, string>>({});
-
-    const {categoryId} = useParams();
     const [productFilterCriteria, setProductFilterCriteria] = useState<ProductFilterCriteria>({
         minPrice: null,
         maxPrice: null,
-        name: null,
+        name: searchString,
         inStock: null,
-        categoryId: categoryId || null,
+        categoryId: null,
         attributeValueIds: []
     })
 
@@ -96,36 +90,16 @@ const Category: React.FC = () => {
         }));
     }
 
-
     useEffect(() => {
         setProductFilterCriteria(prevCriteria => ({
             ...prevCriteria,
-            categoryId: categoryId || null,
+            name: searchString,
         }));
-    }, [categoryId]);
-
-    useEffect(() => {
-        const fetchCategory = async () => {
-            if (!categoryId) {
-                return;
-            }
-            try {
-                const response = await fetch(`http://localhost:8080/category/get/${categoryId}`);
-                if (!response.ok) {
-                    throw new Error('Could not get category.');
-                }
-                const data: CategoryDTO = await response.json();
-                setCategory(data);
-            } catch (error: any) {
-                console.log(error.message);
-            }
-        }
-        fetchCategory();
-    }, [categoryId])
+    }, [searchString]);
 
     const {productList} = useFetchProducts(productFilterCriteria, sortBy);
-    const {productAttributeList} = useFetchProductAttributes();
 
+    const {productAttributeList} = useFetchProductAttributes();
 
     useEffect(() => {
         if (productAttributeList) {
@@ -135,7 +109,6 @@ const Category: React.FC = () => {
         }
     }, [productAttributeList]);
 
-
     return (
         <div>
             <header className="my-account-header">
@@ -143,7 +116,7 @@ const Category: React.FC = () => {
                     <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
                 </picture>
                 <h1 className="my-account-text">
-                    {category.name}
+                    Search results : "{searchString}"
                 </h1>
             </header>
             <FormControl className="form-control">
@@ -200,7 +173,7 @@ const Category: React.FC = () => {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default Category;
+export default SearchPage;

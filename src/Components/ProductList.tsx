@@ -4,20 +4,9 @@ import {Link} from "react-router-dom";
 import {Button, Card, CardContent, Container} from "@mui/material";
 import "./ProductList.css"
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {productImage} from "../Utils/Utilities";
 
 const ProductList: React.FC<ProductListProps> = ({products}) => {
-
-    function productImage(name: string): string {
-        try {
-            return require(`/public/Images/${name.toLowerCase()
-                .replaceAll(' ', '_')
-                .replaceAll('-', '_')}.png`);
-        } catch (error: any) {
-            console.log(error);
-        }
-        return "";
-    }
-
     return (
         <Container className="product-container">
             {products.map(product => (
@@ -44,7 +33,7 @@ const ProductList: React.FC<ProductListProps> = ({products}) => {
                                 size="large"
                         >
                             <AddCircleIcon className="add-circle-icon"/>
-                            <b>Select Options</b>
+                            <b>View Product</b>
                         </Button>
                     </Link>
                 </Card>

@@ -9,7 +9,9 @@ const AccountCart: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction
     const handleLogout = () => {
         localStorage.setItem("logged-in", "false");
         setIsLoggedIn(false);
+        localStorage.removeItem("user-id");
         navigate('/');
+        localStorage.removeItem("cart-id");
     };
 
     return (
@@ -27,7 +29,7 @@ const AccountCart: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction
                         <Link to="/my-account">Dashboard</Link>
                     </div>
                     <div>
-                        <Link to="/my-account">Orders</Link>
+                        <Link to="/orders">Orders</Link>
                     </div>
                     {localStorage.getItem("logged-in") === "true" &&
                         <div>

@@ -21,3 +21,56 @@
     background-color: white;
     color: black;
 }
+
+.main-page-content {
+    display: flex;
+}
+
+.filter-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.product-list {
+    flex: 3.5;
+}
+
+.checkbox-filter {
+    color: white;
+    align-self: flex-start;
+    margin-left: 50px;
+}
+
+.checkbox-filter .MuiButtonBase-root.MuiCheckbox-root {
+    color: white;
+}
+
+.price-filter {
+    color: white;
+    font-size: 1.5em;
+    height: 25px;
+    width: 80%;
+    background-color: rgba(85, 85, 85, 0.73);
+    margin-bottom: 70px;
+}
+
+.filter {
+    color: white;
+    font-size: 1.5em;
+    height: 25px;
+    width: 80%;
+    background-color: rgba(85, 85, 85, 0.73);
+}
+
+.price-filter .MuiSlider-root {
+    color: #be9359;
+}
+
+.price-filter .MuiSlider-markLabel {
+    color: white;
+}

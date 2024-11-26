@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
-import "./SignUpForm.css"
+import React from 'react';
+import "./Account.css"
+import AccountInfoCard from "./AccountInfoCard";
 
-const Account: React.FC = () => {
+const Account: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({setIsLoggedIn}) => {
+
     return (
         <div>
             <header className="my-account-header">
@@ -12,6 +14,7 @@ const Account: React.FC = () => {
                     My Account
                 </h1>
             </header>
+            <AccountInfoCard setIsLoggedIn={setIsLoggedIn} isAccount={true}/>
         </div>
     )
 }

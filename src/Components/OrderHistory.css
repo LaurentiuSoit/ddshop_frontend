@@ -1,0 +1,18 @@
+.order-history-div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.order-history-entry-div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    height: 110px;
+    width: 60%;
+    color: white;
+    margin: 10px;
+    border: 1px solid #be9359;
+}

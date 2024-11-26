@@ -36,28 +36,29 @@
     text-align: center;
 }
 
-.cart-content {
+.order-content {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.cart-entries-div {
+.order-entries-div {
     flex: 1;
 }
 
-.cart-page-entry-div {
+.order-page-entry-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     height: 110px;
+    width: 50%;
     color: white;
     margin: 10px;
     border: 1px solid #be9359;
 }
 
-.cart-page-entry-image-div {
+.order-page-entry-image-div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -66,81 +67,38 @@
     height: 100%;
 }
 
-.cart-page-entry-image-div a {
+.order-page-entry-image-div a {
     height: 85%;
 }
 
-.cart-page-entry-image {
+.order-page-entry-image {
     height: 100%;
     width: 100%;
 }
 
-.cart-page-entry-div-text {
+.order-page-entry-div-text {
     margin-left: 6px;
 }
 
-.cart-page-entry-link {
+.order-page-entry-link {
     color: #e1b65b;
     text-decoration: none;
 }
 
-.cart-page-options {
+.order-page-options {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: #a98351;
 }
 
-.order-button.MuiButtonBase-root {
-    width: 50%;
+.place-order-button.MuiButtonBase-root {
     text-align: center;
     background-color: #a30015;
 }
 
-.order-button.MuiButtonBase-root:hover {
+.place-order-button.MuiButtonBase-root:hover {
     background-color: #e10019;
-}
-
-.cart-page-quantity-div {
-    display: flex;
-    align-items: center;
-}
-
-.quantity-select {
-    width: 100px;
-}
-
-.quantity-select .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color */
-}
-
-.quantity-select .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color when hovered */
-}
-
-.quantity-select .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color when focused */
-}
-
-.quantity-select .MuiInputBase-input {
-    color: white;
-}
-
-.remove-button.MuiButtonBase-root {
-    color: darkred;
-    height: 60%;
-    text-align: center;
-}
-
-@media screen and (min-width: 1200px) {
-    .cart-page-entry-image-div {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        width: 100px;
-        height: 100%;
-    }
 }

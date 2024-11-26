@@ -13,7 +13,13 @@ import {
 } from "@mui/material";
 import {AccountCircle, Lock, Visibility, VisibilityOff} from "@mui/icons-material";
 import "./SignUpForm.css"
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {CartDTO} from "./Types/CartDTO";
+
+interface LoginResponse {
+    message: string;
+    id: number;
+}
 
 const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({setIsLoggedIn}) => {
 
@@ -94,19 +100,33 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
                 body: JSON.stringify(loginDTO)
             });
 
-            const result = await response.text();
-            console.log('Response text: ', result);
+            const result: LoginResponse = await response.json();
             if (response.ok) {
                 setError(null);
                 localStorage.setItem("logged-in", "true");
+                localStorage.setItem("user-id", result.id.toString());
                 setIsLoggedIn(true);
-                navigate("/");
+
             } else {
-                throw new Error('Login failed.');
+                throw new Error(result.message);
             }
         } catch (err: unknown) {
             setError((err as Error).message);
         }
+
+        try {
+            const response = await fetch(`http://localhost:8080/cart/get/${localStorage.getItem("user-id")}`);
+            const result: CartDTO = await response.json();
+            if (response.ok) {
+                setError(null);
+                localStorage.setItem("cart-id", result.id.toString());
+            } else {
+                throw new Error('Cart could not be retrieved.');
+            }
+        } catch (err: unknown) {
+            setError((err as Error).message);
+        }
+        navigate("/");
     };
 
     return (
@@ -179,6 +199,13 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
                     >
                         LOG IN
                     </Button>
+                    <div className="forgot-password-div">
+                        <Link to="/forgot_password"
+                              className="forgot-password-link"
+                        >
+                            Forgot Password?
+                        </Link>
+                    </div>
                 </form>
             </Container>
             <Container className="container">

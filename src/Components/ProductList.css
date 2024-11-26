@@ -3,7 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 1400px;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .card.MuiPaper-root {
@@ -42,5 +42,5 @@
 
 .product-image {
     height: 200px;
-    width: auto;
+    width: 90%;
 }
