@@ -4,6 +4,7 @@ import ProductList from "./ProductList";
 import {ProductFilterCriteria} from "./Types/ProductFilterCriteria";
 import {Checkbox, FormControl, FormControlLabel, MenuItem, Select, SelectChangeEvent, Slider} from "@mui/material";
 import {fetchAttributeValueById, useFetchProductAttributes, useFetchProducts} from "../Utils/Utilities";
+import Header from "./Header";
 
 const SearchPage: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -111,14 +112,7 @@ const SearchPage: React.FC = () => {
 
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    Search results : "{searchString}"
-                </h1>
-            </header>
+            <Header headerText={`Search results : "${searchString}"`}/>
             <FormControl className="form-control">
                 <Select
                     className="select"

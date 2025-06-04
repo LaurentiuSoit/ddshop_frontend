@@ -15,6 +15,7 @@ import {AccountCircle, Lock, Visibility, VisibilityOff} from "@mui/icons-materia
 import "./SignUpForm.css"
 import {Link, useNavigate} from "react-router-dom";
 import {CartDTO} from "./Types/CartDTO";
+import Header from "./Header";
 
 interface LoginResponse {
     message: string;
@@ -120,25 +121,15 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
             if (response.ok) {
                 setError(null);
                 localStorage.setItem("cart-id", result.id.toString());
-            } else {
-                throw new Error('Cart could not be retrieved.');
+                navigate("/");
             }
         } catch (err: unknown) {
-            setError((err as Error).message);
         }
-        navigate("/");
     };
 
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    My Account
-                </h1>
-            </header>
+            <Header headerText="My Account"/>
             <Container className="container">
                 <Avatar className="avatar">
                     <AccountCircle/>
@@ -156,7 +147,7 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
                                 required
                                 fullWidth
                                 label="Email"
-                                type="email"
+                                type="text"
                                 onChange={handleChangeLogIn}
                             />
                         </Grid>
@@ -251,7 +242,7 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
                                 required
                                 fullWidth
                                 label="Email"
-                                type="email"
+                                type="text"
                                 onChange={handleChangeSignUp}
                             />
                         </Grid>

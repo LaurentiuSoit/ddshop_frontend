@@ -3,23 +3,23 @@
 }
 
 .select .MuiSelect-select {
-    background-color: #be9359;
+    background-color: #34000b;
     color: white;
 }
 
-.MuiPaper-root.MuiPopover-paper.MuiMenu-paper {
-    background-color: black;
+.menu-item.MuiPaper-root.MuiPopover-paper.MuiMenu-paper {
+    background-color: #34000b;
     color: white;
 }
 
-.MuiButtonBase-root.MuiMenuItem-root.Mui-selected:hover {
+.menu-item.MuiButtonBase-root.MuiMenuItem-root.Mui-selected:hover {
     background-color: white;
-    color: black;
+    color: #34000b;
 }
 
-.MuiButtonBase-root.MuiMenuItem-root:hover {
+.menu-item.MuiButtonBase-root.MuiMenuItem-root:hover {
     background-color: white;
-    color: black;
+    color: #34000b;
 }
 
 .main-page-content {
@@ -33,7 +33,7 @@
     flex-direction: column;
     flex: 1;
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 100vh;
 }
 
 .product-list {
@@ -41,36 +41,38 @@
 }
 
 .checkbox-filter {
-    color: white;
+    color: #34000b;
     align-self: flex-start;
     margin-left: 50px;
 }
 
 .checkbox-filter .MuiButtonBase-root.MuiCheckbox-root {
-    color: white;
+    color: #34000b;
 }
 
 .price-filter {
-    color: white;
     font-size: 1.5em;
-    height: 25px;
+    height: 30px;
     width: 80%;
-    background-color: rgba(85, 85, 85, 0.73);
+    background-color: #34000b;
     margin-bottom: 70px;
+    color: white;
+    border-radius: 25px;
 }
 
 .filter {
     color: white;
     font-size: 1.5em;
-    height: 25px;
+    height: 30px;
     width: 80%;
-    background-color: rgba(85, 85, 85, 0.73);
+    background-color: #34000b;
+    border-radius: 25px;
 }
 
 .price-filter .MuiSlider-root {
-    color: #be9359;
+    color: #34000b;
 }
 
 .price-filter .MuiSlider-markLabel {
-    color: white;
+    color: #34000b;
 }

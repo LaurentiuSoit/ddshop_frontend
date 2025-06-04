@@ -102,7 +102,8 @@ const AccountInfoCard: React.FC<{
             deliveryAddressId: deliveryAddress.id,
             invoiceAddressId: billingAddress.id,
             totalPrice: totalPrice,
-            orderDate: new Date()
+            orderDate: new Date(),
+            orderEntries: []
         }
         try {
             const response = await fetch('http://localhost:8080/order/place', {
@@ -204,7 +205,7 @@ const AccountInfoCard: React.FC<{
         setOpenBillingAddressModal(true);
         const fetchAddresses = async () => {
             try {
-                const response = await fetch("http://localhost:8080/address/getAll");
+                const response = await fetch(`http://localhost:8080/address/getByUser/${localStorage.getItem("user-id")}`);
                 if (!response.ok) {
                     throw new Error("Could not fetch addresses.");
                 }
@@ -244,7 +245,7 @@ const AccountInfoCard: React.FC<{
         setOpenDeliveryAddressModal(true);
         const fetchAddresses = async () => {
             try {
-                const response = await fetch("http://localhost:8080/address/getAll");
+                const response = await fetch(`http://localhost:8080/address/getByUser/${localStorage.getItem("user-id")}`);
                 if (!response.ok) {
                     throw new Error("Could not fetch addresses.");
                 }
@@ -309,7 +310,7 @@ const AccountInfoCard: React.FC<{
     }, [])
     useEffect(() => {
         const fetchBillingAddress = async () => {
-            if (!localStorage.getItem("user-id")) {
+            if (!user || !user.defaultBillingAddressId) {
                 return;
             }
             try {
@@ -324,11 +325,11 @@ const AccountInfoCard: React.FC<{
             }
         }
         fetchBillingAddress();
-    }, [user.defaultBillingAddressId])
+    }, [user, user.defaultBillingAddressId])
 
     useEffect(() => {
         const fetchDeliveryAddress = async () => {
-            if (!localStorage.getItem("user-id")) {
+            if (!user || !user.defaultBillingAddressId) {
                 return;
             }
             try {
@@ -343,7 +344,7 @@ const AccountInfoCard: React.FC<{
             }
         }
         fetchDeliveryAddress();
-    }, [user.defaultDeliveryAddressId])
+    }, [user, user.defaultDeliveryAddressId])
 
     return (
         <Container className={isAccount ? "account-container" : "order-container"}>

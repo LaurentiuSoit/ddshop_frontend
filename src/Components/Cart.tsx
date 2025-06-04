@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
 import {CartDTO} from "./Types/CartDTO";
 import {fetchCart, fetchProductById, productImage} from "../Utils/Utilities";
+import Header from "./Header";
 
 const Cart: React.FC = () => {
 
@@ -36,7 +37,8 @@ const Cart: React.FC = () => {
         } catch (error: any) {
             setError(error.message);
         }
-        fetchCart();
+        const updatedCart = await fetchCart();
+        setCart(updatedCart);
     };
 
     const handleRemove = async (entryId: number) => {
@@ -49,6 +51,8 @@ const Cart: React.FC = () => {
             }
             const updatedEntries: CartEntryDTO[] = await response.json();
             setEntryList(updatedEntries);
+            const updatedCart = await fetchCart();
+            setCart(updatedCart);
         } catch (error: any) {
             setError(error.message);
         }
@@ -80,57 +84,57 @@ const Cart: React.FC = () => {
 
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    Cart
-                </h1>
-            </header>
+            <Header headerText="Cart"/>
             <div className="cart-content">
                 <div className="cart-entries-div">
-                    {entryList.map(entry => {
-                        const product = productList.find(product => product.id === entry.productId);
-                        return (
-                            <div key={entry.id} className="cart-page-entry-div">
-                                <div className="cart-page-entry-image-div">
-                                    <Link to={`/product/${product ? product.id : ''}`}>
-                                        <img className="cart-page-entry-image"
-                                             src={product ? productImage(product.name) : ""}
-                                             alt="description"
+                    {entryList.length > 0 ? (
+                        entryList.map(entry => {
+                            const product = productList.find(product => product.id === entry.productId);
+                            return (
+                                <div key={entry.id} className="cart-page-entry-div">
+                                    <div className="cart-page-entry-image-div">
+                                        <Link to={`/product/${product ? product.id : ''}`}>
+                                            <img
+                                                className="cart-page-entry-image"
+                                                src={product ? productImage(product.name) : ""}
+                                                alt="description"
+                                            />
+                                        </Link>
+                                    </div>
+                                    <div className="cart-page-entry-div-text">
+                                        <br/>Name: {product ? product.name : 'Loading...'}
+                                        <br/>Quantity: {entry.quantity}
+                                        <br/>Total Price: ${entry.totalPricePerEntry}
+                                    </div>
+                                    <div className="cart-page-quantity-div">
+                                        Qty
+                                        &emsp;
+                                        <TextField
+                                            className="quantity-select"
+                                            variant="outlined"
+                                            required
+                                            type="number"
+                                            defaultValue={entry.quantity}
+                                            onChange={(e) => handleQtyChange(e as React.ChangeEvent<HTMLInputElement>, entry.id)}
                                         />
-                                    </Link>
-                                </div>
-                                <div className="cart-page-entry-div-text">
-                                    <br/>Name: {product ? product.name : 'Loading...'}
-                                    <br/>Quantity: {entry.quantity}
-                                    <br/>Total Price: ${entry.totalPricePerEntry}
-                                </div>
-                                <div className="cart-page-quantity-div">
-                                    Qty
+                                    </div>
                                     &emsp;
-                                    <TextField
-                                        className="quantity-select"
-                                        variant="outlined"
-                                        required
-                                        type="number"
-                                        defaultValue={entry.quantity}
-                                        onChange={(e) => handleQtyChange(e as React.ChangeEvent<HTMLInputElement>, entry.id)}
-                                    />
+                                    <Button
+                                        className="remove-button"
+                                        variant="text"
+                                        size="large"
+                                        onClick={() => handleRemove(entry.id)}
+                                    >
+                                        <b>Remove</b>
+                                    </Button>
                                 </div>
-                                &emsp;
-                                <Button
-                                    className="remove-button"
-                                    variant="text"
-                                    size="large"
-                                    onClick={() => handleRemove(entry.id)}
-                                >
-                                    <b>Remove</b>
-                                </Button>
-                            </div>
-                        );
-                    })}
+                            );
+                        })
+                    ) : (
+                        <div className="empty-message">
+                            Your cart is empty.
+                        </div>
+                    )}
                 </div>
                 <div className="cart-page-options">
                     <h1><u>Total: ${cart.totalPrice}</u></h1>

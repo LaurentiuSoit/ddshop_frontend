@@ -7,14 +7,16 @@ import {ProductAttributeDTO} from "../Components/Types/ProductAttributeDTO";
 import {AttributeValueDTO} from "../Components/Types/AttributeValueDTO";
 
 export function productImage(name: string): string {
-    try {
-        return require(`/public/Images/${name.toLowerCase()
-            .replaceAll(' ', '_')
-            .replaceAll('-', '_')}.png`);
-    } catch (error: any) {
-        console.log(error);
+    if (!name) {
+        return "/Images/default.png";  // fallback image URL path in public folder
     }
-    return "";
+
+    const fileName = name.toLowerCase()
+        .replaceAll(' ', '_')
+        .replaceAll('-', '_') + ".png";
+
+    // Return the relative path to the image in the public folder
+    return `/Images/${fileName}`;
 }
 
 export const fetchProductById = async (id: number): Promise<ProductDTO> => {

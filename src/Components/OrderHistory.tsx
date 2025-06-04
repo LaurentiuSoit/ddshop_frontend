@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import {ShopOrderDTO} from "./Types/ShopOrderDTO";
 import "./OrderHistory.css"
 import {AddressDTO} from "./Types/AddressDTO";
+import Header from "./Header";
+import {fetchProductById} from "../Utils/Utilities";
 
 const OrderHistory: React.FC = () => {
     const [addressList, setAddressList] = useState<AddressDTO[]>([]);
     const [orderList, setOrderList] = useState<ShopOrderDTO[]>([]);
+    const [productsMap, setProductsMap] = useState<Record<number, string>>({});
 
     useEffect(() => {
         const fetchAddresses = async () => {
@@ -36,26 +39,54 @@ const OrderHistory: React.FC = () => {
         fetchOrderHistory();
     }, [])
 
+    useEffect(() => {
+        const fetchAllProducts = async () => {
+            const productIds = Array.from(
+                new Set(orderList.flatMap(order => order.orderEntries.map(entry => entry.productId)))
+            );
+
+            const productsEntries = await Promise.all(
+                productIds.map(async (id) => {
+                    try {
+                        const product = await fetchProductById(id);
+                        return [id, product.name]; // Assuming ProductDTO has 'name'
+                    } catch {
+                        return [id, "Unknown Product"];
+                    }
+                })
+            );
+
+            setProductsMap(Object.fromEntries(productsEntries));
+        };
+
+        fetchAllProducts();
+    }, [orderList]);
+
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    Order History
-                </h1>
-            </header>
+            <Header headerText="Order History"/>
             <div className="order-history-div">
                 {orderList.map(order => {
                     const deliveryAddress = addressList.find(address => address.id === order.deliveryAddressId)
                     const billingAddress = addressList.find(address => address.id === order.invoiceAddressId)
+                    order.orderEntries.forEach(entry => {
+                        console.log(entry.productId)
+                    })
                     return (
                         <div key={order.id} className="order-history-entry-div">
                             <>
                                 Total Price: ${order.totalPrice}
                                 <br/>
                                 Payment Type : {order.paymentType}
+                                <br/>
+                                Product List :
+                                {order.orderEntries.map((entry) => (
+                                    <Fragment key={entry.id}>
+                                        <br/>
+                                        {productsMap[entry.productId] || "Loading..."} ,
+                                        Quantity: {entry.quantity}
+                                    </Fragment>
+                                ))}
                                 <br/>
                                 Delivery Address
                                 : {deliveryAddress ? `${deliveryAddress.streetLine}, ${deliveryAddress.city}, ${deliveryAddress.postalCode}, ${deliveryAddress.county}, ${deliveryAddress.country}` : "Loading..."}

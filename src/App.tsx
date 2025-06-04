@@ -84,9 +84,6 @@ function App() {
     return (
         <div className="app">
             <header className="header">
-                <div className="color-bar">
-                    <b>The largest collection of swords, weapons and more from the Bronze Age to World War II</b>
-                </div>
                 <div className="header-wrapper">
                     <div className="top-elements">
                         <Logo/>
@@ -117,27 +114,31 @@ function App() {
                     </div>
                     <Divider className="divider"/>
                     <div className="entry-container">
-                        {entryList.map(entry => {
-                            const product = productList.find(product => product.id === entry.productId);
-                            return (
-                                <div key={entry.id} className="entry-div">
-                                    <div className="entry-image-div">
-                                        <Link to={`/product/${product ? product.id : ''}`}
-                                              onClick={openDrawer}>
-                                            <img className="entry-image"
-                                                 src={product ? productImage(product.name) : ""}
-                                                 alt="description"
-                                            />
-                                        </Link>
+                        {entryList && entryList.length > 0 ? (
+                            entryList.map(entry => {
+                                const product = productList.find(product => product.id === entry.productId);
+                                return (
+                                    <div key={entry.id} className="entry-div">
+                                        <div className="entry-image-div">
+                                            <Link to={`/product/${product ? product.id : ''}`} onClick={openDrawer}>
+                                                <img
+                                                    className="entry-image"
+                                                    src={product ? productImage(product.name) : ""}
+                                                    alt="description"
+                                                />
+                                            </Link>
+                                        </div>
+                                        <div className="entry-div-text">
+                                            <br/>Name: {product ? product.name : 'Loading...'}
+                                            <br/>Quantity: {entry.quantity}
+                                            <br/>Total Price: ${entry.totalPricePerEntry}
+                                        </div>
                                     </div>
-                                    <div className="entry-div-text">
-                                        <br/>Name: {product ? product.name : 'Loading...'}
-                                        <br/>Quantity: {entry.quantity}
-                                        <br/>Total Price: ${entry.totalPricePerEntry}
-                                    </div>
-                                </div>
-                            );
-                        })}
+                                );
+                            })
+                        ) : (
+                            <p>Shopping cart is empty.</p>
+                        )}
                     </div>
                     <Button
                         className="my-cart-button"

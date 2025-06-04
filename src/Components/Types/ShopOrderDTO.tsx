@@ -1,3 +1,5 @@
+import {ShopOrderEntryDTO} from "./ShopOrderEntryDTO";
+
 enum paymentTypeEnum {
     CREDIT_CARD,
     DEBIT_CARD,
@@ -14,4 +16,5 @@ export interface ShopOrderDTO {
     invoiceAddressId: number;
     totalPrice: number;
     orderDate: Date;
+    orderEntries: ShopOrderEntryDTO[];
 }

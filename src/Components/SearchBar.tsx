@@ -33,7 +33,6 @@ const SearchBar: React.FC = () => {
             variant="outlined"
             placeholder="Search for products..."
             fullWidth
-            defaultValue=""
             value={searchString}
             onChange={handleChange}
             onKeyDown={handleKeyDown}

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {ProductDTO} from "./Types/ProductDTO";
 import {Link, useParams} from "react-router-dom";
 import "./Product.css"
-import {Button, Divider, TextField} from "@mui/material";
+import {Button, Divider, MenuItem, Select, SelectChangeEvent, TextField} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import {CategoryDTO} from "./Types/CategoryDTO";
 import {AttributeDTO} from "./Types/AttributeDTO";
@@ -34,8 +34,9 @@ const Product: React.FC = () => {
 
     const {productId} = useParams();
 
-    const handleQtyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuantity(Number(e.target.value));
+    const handleQtyChange = (e: SelectChangeEvent<number>) => {
+        if (Number(e.target.value) >= 1)
+            setQuantity(Number(e.target.value));
     };
 
     const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -152,20 +153,24 @@ const Product: React.FC = () => {
                 <div className="product-details">
                     {added ? <h2 style={{color: 'green'}}> Product Added to Cart</h2> :
                         ""}
-                    {isInStock ? <h4 style={{color: '#77a464'}}>In Stock</h4> :
+                    {isInStock ? <h4 style={{color: 'green'}}>In Stock</h4> :
                         <h4 style={{color: 'red'}}>Out of Stock</h4>}
                     {isInStock && (
                         <div className="quantity-div">
                             Qty
                             &emsp;
-                            <TextField
-                                className="quantity-textfield"
-                                variant="outlined"
-                                required
-                                type="number"
-                                defaultValue="1"
+                            <Select
+                                labelId="number-select-label"
+                                value={quantity}
+                                label="Number"
                                 onChange={handleQtyChange}
-                            />
+                                variant="outlined">
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                                    <MenuItem key={num} value={num}>
+                                        {num}
+                                    </MenuItem>
+                                ))}
+                            </Select>
                         </div>
                     )}
                     &emsp;
@@ -186,7 +191,7 @@ const Product: React.FC = () => {
                     <div className="specifications">
                         <h2><u>Specifications</u></h2>
                         {attributeList.map(attribute => (
-                            <p>
+                            <p key={`${attribute.name}-${attribute.value}`}>
                                 {attribute.name} : {attribute.value}
                             </p>
                         ))}

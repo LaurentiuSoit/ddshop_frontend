@@ -10,8 +10,9 @@ const AccountCart: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction
         localStorage.setItem("logged-in", "false");
         setIsLoggedIn(false);
         localStorage.removeItem("user-id");
-        navigate('/');
         localStorage.removeItem("cart-id");
+        navigate('/');
+        window.location.reload();
     };
 
     return (

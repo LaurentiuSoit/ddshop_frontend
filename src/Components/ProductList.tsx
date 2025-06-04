@@ -10,22 +10,24 @@ const ProductList: React.FC<ProductListProps> = ({products}) => {
     return (
         <Container className="product-container">
             {products.map(product => (
-                <Card className="card">
+                <Card key={product.id} className="card">
                     <CardContent className="card-content">
-                        <Link className="product-link" key={product.id} to={`/product/${product.id}`}>
+                        <Link className="product-link" to={`/product/${product.id}`}>
                             <img className="product-image"
                                  src={productImage(product.name)}
                                  alt="description"
                             />
-                            <h3>
-                                {product.name}
-                            </h3>
                         </Link>
-                        <p>${product.price} <br/><br/> {product.description}</p>
                     </CardContent>
-                    {product.availableQuantity > 0 ? <h3 style={{color: '#77a464'}}>In Stock</h3> :
-                        <h3 style={{color: 'red'}}>Out of Stock</h3>}
-                    <Link className="product-link" key={product.id} to={`/product/${product.id}`}>
+                    <Link className="product-name-link" to={`/product/${product.id}`}>
+                        <p>{product.name}</p>
+                    </Link>
+                    <div className="product-price-stock">
+                        ${product.price}
+                        {product.availableQuantity > 0 ? <span style={{color: 'green'}}>In Stock</span> :
+                            <span style={{color: 'red'}}>Out of Stock</span>}
+                    </div>
+                    <Link className="product-link" to={`/product/${product.id}`}>
                         <Button className="select-options-button"
                                 type="submit"
                                 fullWidth

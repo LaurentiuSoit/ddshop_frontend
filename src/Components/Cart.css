@@ -1,45 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Metamorphous&display=swap');
-
-.my-account-header {
-    position: relative;
-    max-height: 200px;
-    overflow: hidden;
-}
-
-.my-account-header::before {
-    content: " ";
-    background-image: linear-gradient(180deg, #000000 10%, rgba(3, 3, 3, .6) 100%) !important;
-    display: block;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-.header-image {
-    object-fit: cover;
-}
-
-.header-image .img {
-    position: absolute;
-    max-height: 200px;
-    border-style: none;
-}
-
-.my-account-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Metamorphous', 'Lato';
-    color: white; /* Change color as needed */
-    font-size: 2em; /* Adjust font size as needed */
-    text-align: center;
+.empty-message {
+    color: #34000b;
+    font-size: 2em;
 }
 
 .cart-content {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
+}
+
+@media (max-width: 1000px) {
+    .cart-content {
+        flex-direction: column;
+    }
 }
 
 .cart-entries-div {
@@ -52,9 +25,12 @@
     justify-content: space-around;
     align-items: center;
     height: 110px;
+    width: 100%;
     color: white;
     margin: 10px;
-    border: 1px solid #be9359;
+    background-color: #34000b;
+    border-radius: 20px;
+    min-width: 240px;
 }
 
 .cart-page-entry-image-div {
@@ -77,6 +53,12 @@
 
 .cart-page-entry-div-text {
     margin-left: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
 }
 
 .cart-page-entry-link {
@@ -128,9 +110,13 @@
 }
 
 .remove-button.MuiButtonBase-root {
-    color: darkred;
+    color: white;
     height: 60%;
     text-align: center;
+}
+
+.remove-button.MuiButtonBase-root:hover {
+    color: darkred;
 }
 
 @media screen and (min-width: 1200px) {

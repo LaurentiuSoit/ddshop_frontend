@@ -4,36 +4,44 @@
     flex-wrap: wrap;
     max-width: 1400px;
     justify-content: flex-start;
+    font-size: 1.3em;
 }
 
 .card.MuiPaper-root {
-    border: 1px solid dimgrey;
+    border: 3px solid #34000b;
     max-width: 250px;
     margin: 25px;
-    background-color: #1a1a1a;
     height: auto;
     width: 230px;
 }
 
 .card-content {
-    color: #be9359;
-    background-color: #1a1a1a;
+    color: #34000b;
     height: 350px;
 }
 
 .product-link {
-    color: #e1b65b;
+    color: #34000b;
     text-decoration: none;
+}
+
+.product-name-link {
+    color: #34000b;
+    text-decoration: none;
+}
+
+.product-name-link:hover {
+    color: red;
 }
 
 .select-options-button.MuiButtonBase-root {
     text-align: center;
     margin-bottom: 10px;
-    background-color: #be9359;
+    background-color: #34000b;
 }
 
 .select-options-button.MuiButtonBase-root:hover {
-    background-color: #e1b65b;
+    background-color: #34000b;
 }
 
 .add-circle-icon {
@@ -41,6 +49,13 @@
 }
 
 .product-image {
-    height: 200px;
+    height: 100%;
     width: 90%;
+}
+
+.product-price-stock {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

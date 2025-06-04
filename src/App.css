@@ -5,7 +5,7 @@
 }
 
 .header {
-    background-color: #000000;
+    background-color: #1e423f;
     min-height: 10vh; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
@@ -37,7 +37,10 @@
     flex-wrap: wrap;
     color: white;
     margin-top: 15px;
-    margin-bottom: 20px;
+}
+
+.top-elements a img:hover {
+    filter: brightness(0) saturate(100%) invert(7%) sepia(74%) saturate(1230%) hue-rotate(324deg) brightness(88%) contrast(98%);
 }
 
 .search-bar-wrapper {
@@ -68,10 +71,11 @@
 }
 
 .drawer-box {
-    background-color: #070707;
+    background-color: #1e423f;
     height: 100%;
     width: 350px;
     overflow-y: auto;
+    text-align: center;
 }
 
 .drawer-box-header {
@@ -80,7 +84,7 @@
     align-items: center;
     justify-content: center;
     min-height: 70px;
-    color: #be9359;
+    color: white;
     font-size: 1.5em;
 }
 
@@ -98,13 +102,16 @@
     overflow-y: auto;
 }
 
+.entry-container p {
+    color: white;
+}
+
 .entry-div {
     display: flex;
     flex-wrap: wrap;
     height: 110px;
     color: white;
     margin: 10px;
-    border: 1px solid #be9359;
 }
 
 .entry-image-div {

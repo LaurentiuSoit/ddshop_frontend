@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import ProductList from "./ProductList";
 import {
     Checkbox,
@@ -145,7 +145,7 @@ const MainPage: React.FC = () => {
                         />
                     </div>
                     {productAttributeList.map(productAttribute => (
-                        <>
+                        <Fragment key={productAttribute.id}>
                             <div className="filter">
                                 {productAttribute.name}
                             </div>
@@ -157,7 +157,7 @@ const MainPage: React.FC = () => {
                                         label={attributeValues[attributeValueId] || "Loading..."}/>
                                 </div>
                             ))}
-                        </>
+                        </Fragment>
                     ))}
                 </div>
                 <div className="product-list">

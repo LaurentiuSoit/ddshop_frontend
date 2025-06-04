@@ -5,6 +5,7 @@ import {CategoryDTO} from "./Types/CategoryDTO";
 import {Checkbox, FormControl, FormControlLabel, MenuItem, Select, SelectChangeEvent, Slider} from "@mui/material";
 import {ProductFilterCriteria} from "./Types/ProductFilterCriteria";
 import {fetchAttributeValueById, useFetchProductAttributes, useFetchProducts} from "../Utils/Utilities";
+import Header from "./Header";
 
 const Category: React.FC = () => {
     const MINPRICE = 0;
@@ -138,14 +139,7 @@ const Category: React.FC = () => {
 
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    {category.name}
-                </h1>
-            </header>
+            <Header headerText={category.name}/>
             <FormControl className="form-control">
                 <Select
                     className="select"

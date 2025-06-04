@@ -12,18 +12,40 @@
 .account-menu {
     position: absolute;
     display: none;
-    background-color: #1a1a1a;
+    background-color: #34000b;
     width: 200px;
-    border: 1px solid #be9359;
+    border: 1px solid white;
     z-index: 1300;
 }
 
 .account-menu div {
+    position: relative; /* Required for ::after to be positioned correctly */
     padding: 4px;
+    cursor: pointer;
 }
 
-.account-menu div a:link {
+.account-menu div a {
+    position: relative; /* anchor becomes the positioning context for ::after */
+    display: inline-block; /* makes the a-tag size to the text width */
+    text-decoration: none;
     color: white;
+}
+
+.account-menu div a:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 47%;
+    width: 100%;
+    height: 2px;
+    background: darkred;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.account-menu div a:hover::after {
+    transform: scaleX(1);
 }
 
 .account-menu div a:visited {
@@ -39,7 +61,7 @@
 }
 
 .account-button.account-button {
-    color: #be9359;
+    color: white;
     font-size: 17px;
     font-family: 'Lato';
     text-transform: none;
@@ -47,7 +69,24 @@
 }
 
 .account-button.account-button:hover {
-    color: #e1b65b;
+    color: darkred;
+}
+
+.account-button.account-button:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 47%;
+    width: 100%;
+    height: 2px;
+    background: darkred;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.account-button.account-button:hover::after {
+    transform: scaleX(1);
 }
 
 .account-button::before {
@@ -58,7 +97,7 @@
 }
 
 .cart-button.cart-button {
-    color: #be9359;
+    color: white;
     font-size: 17px;
     font-family: 'Lato';
     text-transform: none;
@@ -66,7 +105,24 @@
 }
 
 .cart-button.cart-button:hover {
-    color: #e1b65b;
+    color: darkred;
+}
+
+.cart-button.cart-button::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 47%;
+    width: 100%;
+    height: 2px;
+    background: darkred;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.cart-button.cart-button:hover::after {
+    transform: scaleX(1);
 }
 
 .cart-button::before {

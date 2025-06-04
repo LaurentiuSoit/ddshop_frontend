@@ -10,8 +10,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
-    height: 110px;
     width: 60%;
+    background-color: #34000b;
     color: white;
     margin: 10px;
     border: 1px solid #be9359;

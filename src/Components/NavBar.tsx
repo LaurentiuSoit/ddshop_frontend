@@ -32,9 +32,6 @@ const NavBar: React.FC = () => {
                 <Link key={category.id} to={`/category/${category.id}`}>
                     <Button className="category-button" key={category.id}>
                         {category.name}
-                        <div className="arrow-div">
-                            <ArrowBackIosNew/>
-                        </div>
                     </Button>
                 </Link>
             ))}

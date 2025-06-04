@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 150px;
+    background-color: #34000b;
 }
 
 .product-page-header-links {
@@ -47,7 +48,7 @@
 
 .product-page-container {
     display: flex;
-    background-color: black;
+    background-color: #f5f5dc;
     height: 600px;
 }
 
@@ -62,7 +63,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    color: white;
+    color: #34000b;
     margin-top: 30px;
 }
 
@@ -74,26 +75,6 @@
 .quantity-div {
     display: flex;
     align-items: center;
-}
-
-.quantity-textfield {
-    width: 100px;
-}
-
-.quantity-textfield .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color */
-}
-
-.quantity-textfield .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color when hovered */
-}
-
-.quantity-textfield .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: #e1b65b; /* Border color when focused */
-}
-
-.quantity-textfield .MuiInputBase-input {
-    color: white;
 }
 
 .add-to-cart-button.MuiButtonBase-root {

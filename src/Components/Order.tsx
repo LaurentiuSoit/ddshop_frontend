@@ -6,6 +6,7 @@ import {CartEntryDTO} from "./Types/CartEntryDTO";
 import {ProductDTO} from "./Types/ProductDTO";
 import {CartDTO} from "./Types/CartDTO";
 import "./Order.css"
+import Header from "./Header";
 
 const Order: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>> }> = ({setIsLoggedIn}) => {
     const [cart, setCart] = useState<CartDTO>({
@@ -42,14 +43,7 @@ const Order: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boole
     }, [])
     return (
         <div>
-            <header className="my-account-header">
-                <picture className="header-image">
-                    <img src="https://www.kultofathena.com/wp-content/uploads/2021/03/weapons_page_title_bar.jpg"/>
-                </picture>
-                <h1 className="my-account-text">
-                    Order
-                </h1>
-            </header>
+            <Header headerText="Order"/>
             <div className="order-content">
                 <div className="order-entries-div">
                     {entryList.map(entry => {
