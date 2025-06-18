@@ -13,7 +13,7 @@ const OrderHistory: React.FC = () => {
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
-                const response = await fetch("http://localhost:8080/address/getAll");
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/getAll`);
                 if (!response.ok) {
                     throw new Error("Could not fetch addresses.");
                 }
@@ -25,7 +25,7 @@ const OrderHistory: React.FC = () => {
         }
         const fetchOrderHistory = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/order/get/${localStorage.getItem("user-id")}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/order/get/${localStorage.getItem("user-id")}`);
                 if (!response.ok) {
                     throw new Error('Could not get order history.');
                 }

@@ -21,7 +21,7 @@ export function productImage(name: string): string {
 
 export const fetchProductById = async (id: number): Promise<ProductDTO> => {
     try {
-        const response = await fetch(`http://localhost:8080/product/get/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/product/get/${id}`);
 
         if (!response.ok) {
             throw new Error(`Error fetching product with id ${id}: ${response.statusText}`);
@@ -36,7 +36,7 @@ export const fetchProductById = async (id: number): Promise<ProductDTO> => {
 
 export const fetchAttributeValueById = async (id: number): Promise<AttributeValueDTO> => {
     try {
-        const response = await fetch(`http://localhost:8080/attribute_value/get/${id}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/attribute_value/get/${id}`);
         if (!response.ok) {
             throw new Error(`Error fetching attribute value with id ${id}: ${response.statusText}`);
         }
@@ -53,7 +53,7 @@ export const fetchUser = async (): Promise<UserDTO> => {
         throw new Error('User ID is missing in local storage.');
     }
     try {
-        const response = await fetch(`http://localhost:8080/user/get/${localStorage.getItem("user-id")}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/get/${localStorage.getItem("user-id")}`);
         if (!response.ok) {
             throw new Error('Could not get user.');
         }
@@ -67,7 +67,7 @@ export const fetchUser = async (): Promise<UserDTO> => {
 
 export const fetchCart = async (): Promise<CartDTO> => {
     try {
-        const response = await fetch(`http://localhost:8080/cart/get/${localStorage.getItem("user-id")}`);
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cart/get/${localStorage.getItem("user-id")}`);
         const cart: CartDTO = await response.json();
         if (response.ok) {
             return cart;
@@ -90,7 +90,7 @@ export const useFetchProducts = (
         const fetchProducts = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:8080/product/filter?sortBy=${sortBy}`,
+                    `${process.env.REACT_APP_BACKEND_URL}/product/filter?sortBy=${sortBy}`,
                     {
                         method: 'POST',
                         headers: {
@@ -122,7 +122,7 @@ export const useFetchProductAttributes = () => {
         const fetchProductAttributeList = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:8080/product_attribute/get`);
+                    `${process.env.REACT_APP_BACKEND_URL}/product_attribute/get`);
                 if (!response.ok) {
                     throw new Error('Could not get product attributes.');
                 }

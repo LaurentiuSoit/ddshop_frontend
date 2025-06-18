@@ -25,7 +25,7 @@ const Cart: React.FC = () => {
         const newQuantity: number = Number(e.target.value);
 
         try {
-            const response = await fetch(`http://localhost:8080/cartEntry/update?entryId=${entryId}&cartId=${localStorage.getItem("cart-id")}&newQuantity=${newQuantity}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cartEntry/update?entryId=${entryId}&cartId=${localStorage.getItem("cart-id")}&newQuantity=${newQuantity}`, {
                 method: 'PUT'
             });
             if (!response.ok) {
@@ -43,7 +43,7 @@ const Cart: React.FC = () => {
 
     const handleRemove = async (entryId: number) => {
         try {
-            const response = await fetch(`http://localhost:8080/cartEntry/delete?entryId=${entryId}&cartId=${localStorage.getItem("cart-id")}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cartEntry/delete?entryId=${entryId}&cartId=${localStorage.getItem("cart-id")}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -60,7 +60,7 @@ const Cart: React.FC = () => {
 
     const fetchEntries = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/cartEntry/get/${localStorage.getItem("cart-id")}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cartEntry/get/${localStorage.getItem("cart-id")}`);
             if (!response.ok) {
                 throw new Error('Could not get cart entries.');
             }

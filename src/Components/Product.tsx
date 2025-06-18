@@ -13,6 +13,7 @@ const Product: React.FC = () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [isInStock, setIsInStock] = useState<boolean>(false);
     const [added, setAdded] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true);
     const [product, setProduct] = useState<ProductDTO>({
         id: 0,
         name: "",
@@ -42,8 +43,13 @@ const Product: React.FC = () => {
     const handleAddToCart = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
+        if (localStorage.getItem("logged-in") === "false") {
+            setIsLoggedIn(false);
+            return;
+        }
+
         try {
-            const response = await fetch(`http://localhost:8080/cart/add?cartId=${localStorage.getItem("cart-id")}&productId=${productId}&quantity=${quantity}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cart/add?cartId=${localStorage.getItem("cart-id")}&productId=${productId}&quantity=${quantity}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,7 +70,7 @@ const Product: React.FC = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/product/get/${productId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/product/get/${productId}`);
                 if (!response.ok) {
                     throw new Error('Could not get product.');
                 }
@@ -85,7 +91,7 @@ const Product: React.FC = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/category/get/${product.categoryId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/category/get/${product.categoryId}`);
                 if (!response.ok) {
                     throw new Error('Could not get category.');
                 }
@@ -104,7 +110,7 @@ const Product: React.FC = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/product/getAttributes/${productId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/product/getAttributes/${productId}`);
                 if (!response.ok) {
                     throw new Error('Could not get product attributes.');
                 }
@@ -151,6 +157,9 @@ const Product: React.FC = () => {
                          src={productImage(product.name)}/>
                 </div>
                 <div className="product-details">
+                    {!isLoggedIn ?
+                        <h2 style={{color: 'darkred'}}>You must be logged in to add products to your cart</h2> :
+                        ""}
                     {added ? <h2 style={{color: 'green'}}> Product Added to Cart</h2> :
                         ""}
                     {isInStock ? <h4 style={{color: 'green'}}>In Stock</h4> :

@@ -48,6 +48,66 @@
     width: 80vw;
 }
 
+.chat-float-button {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.chat-card {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    height: 400px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-right: 8px;
+}
+
+.chat-message {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 80%;
+    color: black;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    background-color: #1976d2;
+    color: white;
+}
+
+.chat-message.bot {
+    align-self: flex-start;
+    background-color: #f0f0f0;
+}
+
+.chat-input {
+    display: flex;
+    padding: 8px;
+    border-top: 1px solid #ccc;
+}
+
+
 .floating-cart.MuiButtonBase-root {
     background-color: #a30015;
     position: fixed;

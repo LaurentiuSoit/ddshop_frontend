@@ -35,7 +35,7 @@ const ChangePassword: React.FC = () => {
         e.preventDefault();
         if (passwordsMatch) {
             try {
-                const response = await fetch(`http://localhost:8080/user/changePassword?id=${userId}&newPassword=${newPassword}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/changePassword?id=${userId}&newPassword=${newPassword}`, {
                     method: 'PUT'
                 });
                 if (response.ok) {

@@ -13,7 +13,7 @@ const NavBar: React.FC = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch('http://localhost:8080/category/getAll');
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/category/getAll`);
                 if (!response.ok) {
                     throw new Error('Could not get categories.');
                 }

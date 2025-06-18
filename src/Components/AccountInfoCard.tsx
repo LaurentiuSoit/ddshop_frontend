@@ -106,7 +106,7 @@ const AccountInfoCard: React.FC<{
             orderEntries: []
         }
         try {
-            const response = await fetch('http://localhost:8080/order/place', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/order/place`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ const AccountInfoCard: React.FC<{
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:8080/user/update/${localStorage.getItem("user-id")}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/update/${localStorage.getItem("user-id")}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -181,7 +181,7 @@ const AccountInfoCard: React.FC<{
     const handleSubmitAddAddress = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8080/address/add`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/add`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ const AccountInfoCard: React.FC<{
         setOpenBillingAddressModal(true);
         const fetchAddresses = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/address/getByUser/${localStorage.getItem("user-id")}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/getByUser/${localStorage.getItem("user-id")}`);
                 if (!response.ok) {
                     throw new Error("Could not fetch addresses.");
                 }
@@ -226,7 +226,7 @@ const AccountInfoCard: React.FC<{
     const handleSubmitBillingAddress = async (addressId: number) => {
 
         try {
-            const response = await fetch(`http://localhost:8080/user/updateBillingAddress?userId=${localStorage.getItem("user-id")}&addressId=${addressId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/updateBillingAddress?userId=${localStorage.getItem("user-id")}&addressId=${addressId}`, {
                 method: 'PUT',
             });
             if (!response.ok) {
@@ -245,7 +245,7 @@ const AccountInfoCard: React.FC<{
         setOpenDeliveryAddressModal(true);
         const fetchAddresses = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/address/getByUser/${localStorage.getItem("user-id")}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/getByUser/${localStorage.getItem("user-id")}`);
                 if (!response.ok) {
                     throw new Error("Could not fetch addresses.");
                 }
@@ -266,7 +266,7 @@ const AccountInfoCard: React.FC<{
     const handleSubmitDeliveryAddress = async (addressId: number) => {
 
         try {
-            const response = await fetch(`http://localhost:8080/user/updateDeliveryAddress?userId=${localStorage.getItem("user-id")}&addressId=${addressId}`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/updateDeliveryAddress?userId=${localStorage.getItem("user-id")}&addressId=${addressId}`, {
                 method: 'PUT',
             });
             if (!response.ok) {
@@ -286,7 +286,7 @@ const AccountInfoCard: React.FC<{
     const handleDeleteAccount = () => {
         const deleteAccount = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/user/delete/${localStorage.getItem("user-id")}`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/delete/${localStorage.getItem("user-id")}`, {
                     method: 'DELETE'
                 });
                 if (!response.ok) {
@@ -314,7 +314,7 @@ const AccountInfoCard: React.FC<{
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/address/get/${user.defaultBillingAddressId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/get/${user.defaultBillingAddressId}`);
                 if (!response.ok) {
                     throw new Error('Could not get billing address.');
                 }
@@ -333,7 +333,7 @@ const AccountInfoCard: React.FC<{
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/address/get/${user.defaultDeliveryAddressId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/address/get/${user.defaultDeliveryAddressId}`);
                 if (!response.ok) {
                     throw new Error('Could not get delivery address.');
                 }

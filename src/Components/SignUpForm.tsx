@@ -67,7 +67,7 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8080/user/signup', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8080/user/login', {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const SignUpForm: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/cart/get/${localStorage.getItem("user-id")}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cart/get/${localStorage.getItem("user-id")}`);
             const result: CartDTO = await response.json();
             if (response.ok) {
                 setError(null);

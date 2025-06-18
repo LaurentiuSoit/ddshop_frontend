@@ -111,7 +111,7 @@ const Category: React.FC = () => {
                 return;
             }
             try {
-                const response = await fetch(`http://localhost:8080/category/get/${categoryId}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/category/get/${categoryId}`);
                 if (!response.ok) {
                     throw new Error('Could not get category.');
                 }

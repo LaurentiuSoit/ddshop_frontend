@@ -22,7 +22,7 @@ const AccountCart: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction
                     <Button
                         className="account-button"
                     >
-                        <u><b>MyAccount</b></u>
+                        <u><b>My Account</b></u>
                     </Button>
                 </Link>
                 <div className="account-menu">

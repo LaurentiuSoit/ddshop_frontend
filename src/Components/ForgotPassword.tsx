@@ -15,7 +15,7 @@ const ForgotPassword: React.FC = () => {
         setSentEmail(true);
 
         try {
-            const response = await fetch(`http://localhost:8080/user/forgotPassword?email=${email}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/forgotPassword?email=${email}`);
             if (!response.ok) {
                 throw new Error("Could not send email.");
             }

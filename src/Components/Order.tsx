@@ -22,7 +22,7 @@ const Order: React.FC<{ setIsLoggedIn: React.Dispatch<React.SetStateAction<boole
 
         const fetchEntries = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/cartEntry/get/${localStorage.getItem("cart-id")}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cartEntry/get/${localStorage.getItem("cart-id")}`);
                 if (!response.ok) {
                     throw new Error('Could not get cart entries.');
                 }

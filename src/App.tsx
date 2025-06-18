@@ -9,7 +9,7 @@ import MainPage from "./Components/MainPage";
 import Category from "./Components/Category";
 import SignUpForm from "./Components/SignUpForm";
 import Cart from "./Components/Cart";
-import {Box, Button, Divider, Drawer, Fab} from "@mui/material";
+import {Box, Button, Card, CardContent, Divider, Drawer, Fab, IconButton, TextField, Typography} from "@mui/material";
 import {ShoppingCart} from "@mui/icons-material";
 import Account from "./Components/Account";
 import Product from "./Components/Product";
@@ -22,6 +22,10 @@ import ForgotPassword from "./Components/ForgotPassword";
 import ChangePassword from "./Components/ChangePassword";
 import SearchPage from "./Components/SearchPage";
 import OrderHistory from "./Components/OrderHistory";
+import ChatIcon from "@mui/icons-material/Chat";
+import CloseIcon from "@mui/icons-material/Close";
+import SendIcon from "@mui/icons-material/Send";
+import {MessageDTO} from "./Components/Types/MessageDTO";
 
 function App() {
 
@@ -30,7 +34,12 @@ function App() {
     const [entryList, setEntryList] = useState<CartEntryDTO[]>([]);
     const [productList, setProductList] = useState<ProductDTO[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [hasOpenedOnce, setHasOpenedOnce] = useState(false);
+    const [messages, setMessages] = useState<MessageDTO[]>([]);
+    const [input, setInput] = useState("");
     const navigate = useNavigate();
+
 
     const handleMyCartClick = () => {
         openDrawer();
@@ -39,7 +48,7 @@ function App() {
 
     const fetchProductById = async (id: number): Promise<ProductDTO> => {
         try {
-            const response = await fetch(`http://localhost:8080/product/get/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/product/get/${id}`);
 
             if (!response.ok) {
                 throw new Error(`Error fetching product with id ${id}: ${response.statusText}`);
@@ -53,12 +62,53 @@ function App() {
         }
     };
 
+    const handleOpenChat = () => {
+        setIsChatOpen(true);
+
+        if (!hasOpenedOnce) {
+            const welcomeMessage: MessageDTO = {
+                sender: "bot",
+                text: "Hi there! How can I assist you today?",
+            };
+            setMessages((prev) => [...prev, welcomeMessage]);
+            setHasOpenedOnce(true);
+        }
+    };
+
+
+    const handleSend = async () => {
+        if (!input.trim()) return;
+
+        const userMessage: MessageDTO = {sender: "user", text: input};
+        setMessages((prev) => [...prev, userMessage]);
+        setInput("");
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/chat/ask`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({input}),
+            });
+
+            const botText = await response.text();
+            const botMessage: MessageDTO = {sender: "bot", text: botText};
+            setMessages((prev) => [...prev, botMessage]);
+        } catch (error) {
+            console.error("Failed to fetch chat response:", error);
+            setMessages((prev) => [
+                ...prev,
+                {sender: "bot", text: "Sorry, something went wrong."},
+            ]);
+        }
+    };
+
+
     const openDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
         if (!isDrawerOpen) {
             const fetchEntries = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8080/cartEntry/get/${localStorage.getItem("cart-id")}`);
+                    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/cartEntry/get/${localStorage.getItem("cart-id")}`);
                     if (!response.ok) {
                         throw new Error('Could not get cart entries.');
                     }
@@ -95,10 +145,55 @@ function App() {
                     <NavBar/>
                 </div>
             </header>
-            <Fab className={`floating-cart ${isDrawerOpen ? 'floating-cart-open' : ''}`}
-                 onClick={openDrawer}>
-                <ShoppingCart className="cart-icon"/>
-            </Fab>
+            {!isChatOpen && (
+                <div className="chat-float-button">
+                    <Fab color="primary" onClick={handleOpenChat}>
+                        <ChatIcon/>
+                    </Fab>
+                </div>
+            )}
+
+            {isChatOpen && (
+                <Card className="chat-card">
+                    <div className="chat-header">
+                        <Typography variant="h6">AI Assistant</Typography>
+                        <IconButton onClick={() => setIsChatOpen(false)}>
+                            <CloseIcon/>
+                        </IconButton>
+                    </div>
+
+                    <CardContent className="chat-content">
+                        {messages.map((msg, idx) => (
+                            <Box
+                                key={idx}
+                                className={`chat-message ${msg.sender === "user" ? "user" : "bot"}`}
+                            >
+                                {msg.text}
+                            </Box>
+                        ))}
+                    </CardContent>
+
+                    <div className="chat-input">
+                        <TextField
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                            fullWidth
+                            size="small"
+                            placeholder="Type your message..."
+                        />
+                        <IconButton color="primary" onClick={handleSend}>
+                            <SendIcon/>
+                        </IconButton>
+                    </div>
+                </Card>
+            )}
+            {!isChatOpen && (
+                <Fab className={`floating-cart ${isDrawerOpen ? 'floating-cart-open' : ''}`}
+                     onClick={openDrawer}>
+                    <ShoppingCart className="cart-icon"/>
+                </Fab>
+            )}
             <Drawer
                 anchor="right"
                 open={isDrawerOpen}
